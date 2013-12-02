@@ -11,15 +11,17 @@ define([
 
     var AddView = Backbone.View.extend({
 
-        tagName: 'form',
+        tagName: 'div',
+        className: 'large-8 columns',
 
         //Items events
         events: {
-            'click #save': 'saveComic',
+            'submit': 'saveComic',
         },
 
         initialize: function () {
             this.template = _.template(AddTemplate);
+            this.on('post-render', this.onPostRender, this);
         },
 
         //Renders the item
@@ -29,10 +31,20 @@ define([
             this.$releaseDate = this.$("#releaseDate");
             this.$coverDate = this.$("#coverDate");
             this.$title = this.$("#title");
+            this.$issue = this.$("#issue");
+            this.$publisher = this.$("#publisher");
+            this.$printedBy = this.$("#printedBy");
+            this.$country = this.$("#country");
+            this.$plot = this.$("#plot");
+            this.$authors = this.$("#authors");
+            this.$cover = this.$("#cover");
+            this.$price = this.$("#price");
+            this.$store = this.$("#store");
 
             this.$purchaseDate.datepicker();
             this.$releaseDate.datepicker();
             this.$coverDate.datepicker();
+            this.trigger('post-render');
             return this;
         },
 
@@ -40,31 +52,39 @@ define([
             return {
                 id: this.options.collection.nextOrder(),
                 title: this.$title.val().trim(),
-                purchasePrice: 0,
-                issueNo: 0,
-                publisher: 'publisher',
-                cover: 'http://placehold.it/1000x1000&text=Thumbnail',
-                country: 'country',
-                plot: 'lorem ipsum dolor',
-                printedBy: 'printedBy',
-                authors: 'authors',
+                purchasePrice: this.$price.val().trim(),
+                issueNo: this.$issue.val().trim(),
+                publisher: this.$publisher.val().trim(),
+                cover: this.$cover.val().trim(),
+                country: this.$country.val().trim(),
+                plot: this.$plot.val().trim(),
+                printedBy: this.$printedBy.val().trim(),
+                authors: this.$authors.val().trim(),
                 releaseDate: this.$releaseDate.val().trim(),
                 coverDate: this.$coverDate.val().trim(),
                 purchaseDate: this.$purchaseDate.val().trim(),
-                store: ''
+                store: this.$store.val().trim()
             };
         },
 
         saveComic: function (event) {
             this.collection.create(this.newAttributes());
-            /*this.$input_new_name.val('');
-            this.$input_new_director.val('');
-            this.$input_new_year.val('');
-            this.$input_new_cast.val('');
-            this.$input_new_sinopsis.val('');
-            this.$input_new_img.val('http://placehold.it/370x175');
-            this.view_movies_list();*/
+            $("#dialog-confirm").dialog({
+                resizable: false,
+                modal: true,
+                buttons: {
+                    "Ok": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+
         },
+
+        onPostRender: function () {
+            $(this.el).foundation();
+        }
 
     });
 

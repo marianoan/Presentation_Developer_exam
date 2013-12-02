@@ -25,7 +25,7 @@ define([
         //Initialize the view
         initialize: function () {
 
-            $(document).foundation();
+            
             this.collection = new Items();
             this.route = 'index';
             this.$content = this.$('#content');
@@ -34,13 +34,15 @@ define([
             
             this.listenTo(this.collection, 'add', this.addOne);
             this.listenTo(this.collection, 'reset', this.addAll);
-            //this.listenTo(this.collection, 'change', this.updateCart);
+            //this.listenTo(this.collection, 'change', this.setNewView);
+            this.on('post-render', this.onPostRender, this);
 
             this.collection.fetch();
         },
 
-
-
+        onPostRender: function () {
+            $(this.el).foundation();
+        },
 
 
         addOne: function (item) {
@@ -81,12 +83,12 @@ define([
                 text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.'
             });
             this.$content.append(view.render().el);
-            this.$content.append('<div class="large-8 columns" id="form"></div>');
+            //this.$content.append('<div class="large-8 columns" id="form"></div>');
             var addView = new AddView({
                 collection: this.collection
             });
-            this.$('#form').append(addView.render().el);
-
+            //this.$('#form').append(addView.render().el);
+            this.$content.append(addView.render().el);
         },
 
 

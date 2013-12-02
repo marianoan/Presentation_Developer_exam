@@ -19,7 +19,7 @@ define([
         events: {
             //'click .addButton': 'addToCart',
             //'click #modifyButton': 'modifyQuantity',
-            //'click #deleteButton': 'removeFromCart'
+            'click #delete': 'clear'
         },
 
         initialize: function () {
@@ -44,6 +44,8 @@ define([
         //Destroy model
         clear: function () {
             this.model.destroy();
+            this.remove();
+            Backbone.history.navigate('#');
         },
 
        
@@ -71,20 +73,6 @@ define([
             Backbone.history.navigate('#');
         },
 
-        //Remove item from cart
-        removeFromCart: function () {
-            this.model.toggle();
-            this.model.save({ quantity: 0 });
-            this.$quantity.val('1');
-            //window.app.collection.customFilter();
-            this.$alert.html('The item has removed from your cart');
-            this.$alert.show();
-            this.$inCartIcon.hide();
-            this.$modifyButton.hide();
-            this.$deleteButton.hide();
-            this.$addButton.show();
-            Backbone.history.navigate('#');
-        }
 
 
     });
