@@ -1,26 +1,30 @@
 ﻿define([
     'jquery',
+    'underscore',
     'backbone',
     'app'
-], function ($, Backbone, App) {
+], function ($, _, Backbone, App) {
 
    return Backbone.Router.extend({
         routes: {
             'new': 'newComic',
-            'collection': 'collection',
+            'editComic': 'editComic',
             'statistics': 'statistics',
              '': 'index'
         },
 
         initialize: function () {
-            app = new App()
+            app = new App();
             Backbone.history.start();
-
         },
 
         newComic: function () {
            app.setNewView();
-       },
+        },
+
+        editComic: function () {
+            //app.setEditView();
+        },
 
         index: function () {
             app.collection.fetch();

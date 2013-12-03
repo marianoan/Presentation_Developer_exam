@@ -18,13 +18,14 @@ define([
         //Items events
         events: {
             //'click .addButton': 'addToCart',
-            //'click #modifyButton': 'modifyQuantity',
+            'click #edit': 'edit',
             'click #delete': 'clear'
         },
 
-        initialize: function () {
+        initialize: function (options) {
             //this.listenTo(this.model, 'destroy', this.remove);
             this.template = _.template(ThumbnailTemplate);
+            this.vent = options.vent;
         },
 
         //Renders the item
@@ -45,12 +46,16 @@ define([
         clear: function () {
             this.model.destroy();
             this.remove();
-            Backbone.history.navigate('#');
+            this.vent.trigger("decreaseCollection");
         },
 
+        edit: function () {
+            this.vent.trigger("setEditView", this.model);
+            Backbone.history.navigate('#editComic');
+        },
        
 
-        //add the item to cart
+        /*add the item to cart
         addToCart: function () {
             var quantity = this.$('#quantity').val().trim();
             this.$alert.html('The item has been added to the cart');
@@ -71,7 +76,7 @@ define([
             this.$alert.html('The quantity has been updated');
             this.$alert.show();
             Backbone.history.navigate('#');
-        },
+        },*/
 
 
 

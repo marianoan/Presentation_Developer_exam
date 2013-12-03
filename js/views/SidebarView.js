@@ -18,15 +18,25 @@ define([
         events: {
         },
 
-        initialize: function () {
+        initialize: function (options) {
             this.template = _.template(SidebarTemplate);
+            this.lenght = this.options.collectionLenght;
+            //console.log(this.lenght);
+            _.bindAll(this, "decreaseCollection");
+            options.vent.bind("decreaseCollection", this.decreaseCollection);
         },
 
         //Renders the item
         render: function () {
-            this.$el.html(this.template({ "collectionLenght": this.options.collectionLenght, "title": this.options.title, "text": this.options.text }));
+            this.$el.html(this.template({ "collectionLenght": this.lenght, "title": this.options.title, "image": this.options.image, "text": this.options.text }));
             return this;
         },
+
+        decreaseCollection: function () {
+            this.lenght--;
+            console.log(this.lenght);
+            this.$('#quantity').text(this.lenght + ' comic books in your collection.')
+        }
 
 
     });

@@ -1,6 +1,7 @@
 ﻿/*
 * @Author: Mariano Gonzalez
 */
+
 define([
   'foundation',
   'underscore',
@@ -9,8 +10,9 @@ define([
   'views/SidebarView',
   'views/ThumbnailView',
   'views/AddView',
+  'views/EditView',
   'models/Item'
-], function ($, _, Backbone, Items, SidebarView, ThumbnailView, AddView, Item) {
+], function ($, _, Backbone, Items, SidebarView, ThumbnailView, AddView, EditView, Item) {
 
     return Backbone.View.extend({
 
@@ -23,19 +25,24 @@ define([
         },
 
         //Initialize the view
-        initialize: function () {
-
+        initialize: function (options) {
+            this.vent = _.extend({}, Backbone.Events);
             
             this.collection = new Items();
             this.route = 'index';
             this.$content = this.$('#content');
 
+            
+
             this.setDefaultView();
             
             this.listenTo(this.collection, 'add', this.addOne);
             this.listenTo(this.collection, 'reset', this.addAll);
-            //this.listenTo(this.collection, 'change', this.setNewView);
+            this.listenTo(this.collection, 'change', this.test);
             this.on('post-render', this.onPostRender, this);
+
+            _.bindAll(this, "setEditView");
+            this.vent.bind("setEditView", this.setEditView);
 
             this.collection.fetch();
         },
@@ -44,10 +51,13 @@ define([
             $(this.el).foundation();
         },
 
+        test: function () {
+            console.log('test');
+        },
 
         addOne: function (item) {
             //console.log('index');
-            var view = new ThumbnailView({ model: item });
+            var view = new ThumbnailView({ model: item, vent: this.vent });
             this.$('#thumbs').append(view.render().el);
         },
 
@@ -65,7 +75,9 @@ define([
             var view = new SidebarView({
                 collectionLenght: this.collection.comicsInCollection(),
                 title: 'My collection',
-                text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.'
+                vent: this.vent,
+                text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.',
+                image: 'http://placehold.it/500x500&text=Logo'
             });
             this.$content.append(view.render().el);
             this.$content.append('<div class="large-8 columns"><div class="row" id="thumbs"></div></div>');
@@ -80,15 +92,37 @@ define([
             var view = new SidebarView({
                 collectionLenght: this.collection.comicsInCollection(),
                 title: 'Adding new comic book',
-                text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.'
+                vent: this.vent,
+                text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.',
+                image: 'http://placehold.it/500x500&text=Logo'
             });
             this.$content.append(view.render().el);
-            //this.$content.append('<div class="large-8 columns" id="form"></div>');
             var addView = new AddView({
                 collection: this.collection
             });
-            //this.$('#form').append(addView.render().el);
             this.$content.append(addView.render().el);
+        },
+
+        setEditView: function (model) {
+            this.route = 'edit';
+            console.log('edit');
+            this.$content.html('');
+            var title = model.get('title');
+            if (model.get('issueNo') != '') {
+                title += ' #' + model.get('issueNo');
+            }
+            var view = new SidebarView({
+                collectionLenght: this.collection.comicsInCollection(),
+                title: title,
+                vent: this.vent,
+                text: '',
+                image: model.get('cover')
+            });
+            this.$content.append(view.render().el);
+            var editView = new EditView({
+                model: model
+            });
+            this.$content.append(editView.render().el);
         },
 
 
