@@ -22,6 +22,10 @@
            app.setNewView();
         },
 
+        statistics: function () {
+            app.setStatsView();
+        },
+
         editComic: function () {
             //app.setEditView();
         },

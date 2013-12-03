@@ -28,7 +28,7 @@ define([
 
         //Renders the item
         render: function () {
-            this.$el.html(this.template({ "collectionLenght": this.lenght, "title": this.options.title, "image": this.options.image, "text": this.options.text }));
+            this.$el.html(this.template({ "collectionLenght": this.lenght, "count": this.options.count, "title": this.options.title, "image": this.options.image, "text": this.options.text }));
             return this;
         },
 

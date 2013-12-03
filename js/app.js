@@ -11,8 +11,9 @@ define([
   'views/ThumbnailView',
   'views/AddView',
   'views/EditView',
+  'views/StatsView',
   'models/Item'
-], function ($, _, Backbone, Items, SidebarView, ThumbnailView, AddView, EditView, Item) {
+], function ($, _, Backbone, Items, SidebarView, ThumbnailView, AddView, EditView, StatsView, Item) {
 
     return Backbone.View.extend({
 
@@ -76,6 +77,7 @@ define([
                 collectionLenght: this.collection.comicsInCollection(),
                 title: 'My collection',
                 vent: this.vent,
+                count: true,
                 text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.',
                 image: 'http://placehold.it/500x500&text=Logo'
             });
@@ -93,6 +95,7 @@ define([
                 collectionLenght: this.collection.comicsInCollection(),
                 title: 'Adding new comic book',
                 vent: this.vent,
+                count: true,
                 text: 'Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.',
                 image: 'http://placehold.it/500x500&text=Logo'
             });
@@ -115,6 +118,7 @@ define([
                 collectionLenght: this.collection.comicsInCollection(),
                 title: title,
                 vent: this.vent,
+                count: false,
                 text: '',
                 image: model.get('cover')
             });
@@ -123,6 +127,14 @@ define([
                 model: model
             });
             this.$content.append(editView.render().el);
+        },
+
+        setStatsView: function () {
+            this.route = 'stats';
+            console.log('stats');
+            this.$content.html('');
+            var statsView = new StatsView();
+            this.$content.append(statsView.render().el);
         },
 
 

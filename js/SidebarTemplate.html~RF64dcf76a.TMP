@@ -7,8 +7,6 @@
         </h5>
     </div>
 
-    <% if(count) { %>
     <div class="panel callout radius" id="quantity">
         <h6><%- collectionLenght %>  comic books in your collection</h6>
     </div>
-    <% } %>

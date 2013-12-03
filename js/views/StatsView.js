@@ -6,13 +6,13 @@ define([
   'jqueryui',
   'underscore',
   'backbone',
-  'text!EditTemplate.html'
+  'text!StatsTemplate.html'
 ], function ($, _, Backbone, AddTemplate) {
 
-    var EditView = Backbone.View.extend({
+    var StatsView = Backbone.View.extend({
 
         tagName: 'div',
-        className: 'large-8 columns',
+        className: 'large-12 columns',
 
         //Items events
         events: {
@@ -26,7 +26,7 @@ define([
 
         //Renders the item
         render: function () {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template());
             this.$purchaseDate = this.$("#purchaseDate");
             this.$releaseDate = this.$("#releaseDate");
             this.$coverDate = this.$("#coverDate");
@@ -104,7 +104,7 @@ define([
 
     });
 
-    return EditView;
+    return StatsView;
 });
 
 
