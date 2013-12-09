@@ -1,6 +1,8 @@
-﻿   <img src="<%- cover %>">
+﻿<i class="fi-x size-24 iconHomeLeft" id="delete"></i>   
+<i class="fi-page-edit size-24 iconHomeRight" id="edit"></i>
+<img src="<%- cover %>">
 
-    <div class="panel">
-        <h5><%- title %></h5>
-        <h6 class="subheader">$<%- purchasePrice %></h6>
-    </div>
+    <div class="panel panelPadding">
+    <h5 class="text-center"><%- title %> <% if (issueNo != '') { %> #<%- issueNo %> <% } %></h5>
+    <h5 class="text-center"><small class="text-center"><%- authors %></small></h5>
+</div>

@@ -46,7 +46,8 @@
     timer : null,
 
     init : function (scope, method, options) {
-      this.bindings(method, options);
+        this.bindings(method, options);
+        console.log('abide');
     },
 
     events : function (scope) {
@@ -74,7 +75,8 @@
           });
     },
 
-    validate : function (els, e, is_ajax) {
+    validate: function (els, e, is_ajax) {
+        console.log('validation');
       var validations = this.parse_patterns(els),
           validation_count = validations.length,
           form = $(els[0]).closest('form'),
