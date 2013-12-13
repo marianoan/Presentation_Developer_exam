@@ -6,8 +6,10 @@ define([
   'jqueryui',
   'underscore',
   'backbone',
-  'text!StatsTemplate.html'
-], function ($, _, Backbone, AddTemplate) {
+  'googleChart',
+  'text!StatsTemplate.html',
+  'goog!visualization,1,packages:[corechart,geochart]'
+], function ($, _, Backbone, GoogleChart, StatsTemplate) {
 
     var StatsView = Backbone.View.extend({
 
@@ -16,90 +18,104 @@ define([
 
         //Items events
         events: {
-            'submit': 'saveComic',
+            //'submit': 'saveComic'
         },
 
+
         initialize: function () {
-            this.template = _.template(AddTemplate);
+            this.template = _.template(StatsTemplate);
+
+            var country = this.options.collection.groupBy( function(model){
+                return model.get('country');
+            });
+
+            var publisher = this.options.collection.groupBy( function(model){
+                return model.get('publisher');
+            });
+
+            var store = this.options.collection.groupBy( function(model){
+                return model.get('store');
+            });
+
+            var publishers = new Array();
+            var publishersQ = new Array();
+            publishers.push('Publisher');
+            publishersQ.push('Quantity');
+            for (var p in publisher) {
+                publishers.push(p);
+                publishersQ.push(publisher[p].length);
+            }
+
+            var countries = new Array();
+            var countriesQ = new Array();
+            countries.push('Country');
+            countriesQ.push('Quantity');
+            for (var p in country) {
+                countries.push(p);
+                countriesQ.push(country[p].length);
+            }
+
+            var stores = new Array();
+            var storesQ = new Array();
+            stores.push('Store');
+            storesQ.push('Quantity');
+            for (var p in store) {
+                stores.push(p);
+                storesQ.push(store[p].length);
+            }
+
+            var publisherData = new Array();
+            publisherData.push(publishers);
+            publisherData.push(publishersQ);
+
+            var countryData = new Array();
+            countryData.push(countries);
+            countryData.push(countriesQ);
+
+            var storesData = new Array();
+            storesData.push(stores);
+            storesData.push(storesQ);
+
+            var data = google.visualization.arrayToDataTable(publisherData);
+
+            this.publishersChart = new Backbone.GoogleChart({
+                chartType: 'ColumnChart',
+                dataTable: data
+            });
+
+            data = google.visualization.arrayToDataTable(countryData);
+
+            this.countriesChart = new Backbone.GoogleChart({
+                chartType: 'ColumnChart',
+                dataTable: data
+            });
+
+            data = google.visualization.arrayToDataTable(storesData);
+
+            this.storesChart = new Backbone.GoogleChart({
+                chartType: 'ColumnChart',
+                dataTable: data
+            });
+
             this.on('post-render', this.onPostRender, this);
         },
 
         //Renders the item
         render: function () {
             this.$el.html(this.template());
-            this.$purchaseDate = this.$("#purchaseDate");
-            this.$releaseDate = this.$("#releaseDate");
-            this.$coverDate = this.$("#coverDate");
-            this.$title = this.$("#title");
-            this.$issue = this.$("#issue");
-            this.$publisher = this.$("#publisher");
-            this.$printedBy = this.$("#printedBy");
-            this.$country = this.$("#country");
-            this.$plot = this.$("#plot");
-            this.$authors = this.$("#authors");
-            this.$cover = this.$("#cover");
-            this.$price = this.$("#price");
-            this.$store = this.$("#store");
-
-            this.$purchaseDate.datepicker();
-            this.$releaseDate.datepicker();
-            this.$coverDate.datepicker();
+            //this.publishersChart.dataTable.push(this.publishers);
+            //this.publishersChart.dataTable.push(this.publishersQ);
+            this.$("#publishers").append( this.publishersChart.render().el );
+            this.$("#country").append( this.countriesChart.render().el );
+            this.$("#store").append( this.storesChart.render().el );
             this.trigger('post-render');
             return this;
         },
 
-        newAttributes: function () {
-            return {
-                id: this.options.collection.nextOrder(),
-                title: this.$title.val().trim(),
-                purchasePrice: this.$price.val().trim(),
-                issueNo: this.$issue.val().trim(),
-                publisher: this.$publisher.val().trim(),
-                cover: this.$cover.val().trim(),
-                country: this.$country.val().trim(),
-                plot: this.$plot.val().trim(),
-                printedBy: this.$printedBy.val().trim(),
-                authors: this.$authors.val().trim(),
-                releaseDate: this.$releaseDate.val().trim(),
-                coverDate: this.$coverDate.val().trim(),
-                purchaseDate: this.$purchaseDate.val().trim(),
-                store: this.$store.val().trim()
-            };
-        },
 
 
         onPostRender: function () {
             $(this.el).foundation();
-        },
-
-        saveComic: function () {
-            var title = this.$title.val().trim();
-            var purchasePrice = this.$price.val().trim();
-            var issueNo = this.$issue.val().trim();
-            var publisher = this.$publisher.val().trim();
-            var cover = this.$cover.val().trim();
-            var country = this.$country.val().trim();
-            var plot = this.$plot.val().trim();
-            var printedBy = this.$printedBy.val().trim();
-            var authors = this.$authors.val().trim();
-            var releaseDate = this.$releaseDate.val().trim();
-            var coverDate = this.$coverDate.val().trim();
-            var purchaseDate = this.$purchaseDate.val().trim();
-            var store = this.$store.val().trim();
-
-            this.model.save({ title: title, purchasePrice: purchasePrice, issueNo: issueNo, publisher: publisher, cover: cover, country: country, plot: plot, printedBy: printedBy, authors: authors, releaseDate: releaseDate, coverDate: coverDate, purchaseDate: purchaseDate, store: store });
-            $("#dialog-confirm").dialog({
-                resizable: false,
-                modal: true,
-                buttons: {
-                    "Ok": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-
-            this.render();
-
         }
 
     });

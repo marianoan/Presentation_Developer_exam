@@ -1,124 +1,30 @@
 ﻿    <h1>Collection Statistics</h1>
     <div class="row">
-        <form data-abide novalidate="novalidate" action="#">
-            <div class="large-12 columns">
-                <fieldset>
-                    <legend>New Comic Data</legend>
-
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <label>Title <small>required</small></label>
-                            <input type="text" required pattern="[a-zA-Z]+" id="title" placeholder="Comic book title">
-                            <small class="error">Name is required and must be a string.</small>
-                        </div>
+        <div class="large-12 columns">
+            <fieldset>
+                <legend>Comics by publisher</legend>
+                <div class="row">
+                    <div class="large-12 columns" id="publishers">
                     </div>
+                </div>
+            </fieldset>
 
-                    <div class="row">
-                        <div class="large-4 columns">
-                            <label>Issue No</label>
-                            <input type="text" id="issue" placeholder="Issue number" />
-                        </div>
-                        <div class="large-4 columns">
-                            <label>Publisher</label>
-                            <select id="publisher" required>
-                                <option value>Choose..</option>
-                                <option value="DC Comics">DC Comics</option>
-                                <option value="Marvel">Marvel</option>
-                                <option value="Image">Image</option>
-                                <option value="Vertigo">Vertigo</option>
-                            </select>
-                            <small class="error">You have to select a publisher.</small>
-                        </div>
-                        <div class="large-4 columns">
-                            <label>Printed By</label>
-                            <select id="printedBy" required>
-                                <option value>Choose..</option>
-                                <option value="DC Comics">ECC Comics</option>
-                                <option value="Marvel">Ovni Press</option>
-                                <option value="Image">Norma Editorial</option>
-                                <option value="Vertigo">Planeta DeAgostini</option>
-                                <option value="DC Comics">DC Comics</option>
-                            </select>
-                            <small class="error">You have to select a editor.</small>
-                        </div>
+            <fieldset>
+                <legend>Comics by country</legend>
+                <div class="row">
+                    <div class="large-12 columns" id="country">
                     </div>
+                </div>
+            </fieldset>
 
-                    <div class="row">
-                        <div class="large-4 columns">
-                            <label>Country</label>
-                            <select id="country" required>
-                                <option value>Choose..</option>
-                                <option value="DC Comics">USA</option>
-                                <option value="Marvel">Argentina</option>
-                                <option value="Image">Spain</option>
-                            </select>
-                            <small class="error">You have to select a country.</small>
-                        </div>
-                        <div class="large-4 columns">
-                            <label>Release Date</label>
-                            <input type="text" required pattern="month_day_year" id="releaseDate" />
-                            <small class="error">You have to pick a valid date.</small>
-                        </div>
-                        <div class="large-4 columns">
-                            <label>Cover Date</label>
-                            <input type="text" required pattern="month_day_year" id="coverDate" />
-                            <small class="error">You have to pick a valid date.</small>
-                        </div>
+
+            <fieldset>
+                <legend>Comics by store</legend>
+                <div class="row">
+                    <div class="large-12 columns" id="store">
                     </div>
+                </div>
+            </fieldset>
 
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <label>Plot</label>
-                            <textarea id="plot" placeholder="Plot of the comic book"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <label>Authors</label>
-                            <textarea id="authors" placeholder="Writer, penciller, etc"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <label>Cover</label>
-                            <input type="url" id="cover" required placeholder="http://placehold.it/1000x1000&text=Thumbnail" />
-                            <small class="error">Valid URL required.</small>
-                        </div>
-                    </div>
-
-                </fieldset>
-
-                <fieldset>
-                    <legend>Purchase Data</legend>
-
-                    <div class="row">
-                        <div class="large-4 columns">
-                            <label>Store</label>
-                            <select id="store" required>
-                                <option value>Choose..</option>
-                                <option value="DC Comics">Rayos y Centellas</option>
-                                <option value="Marvel">Arcana</option>
-                                <option value="Image">Camelot</option>
-                            </select>
-                            <small class="error">You have to select a store.</small>
-                        </div>
-                        <div class="large-4 columns">
-                            <label>Purchase Price</label>
-                            <input id="price" required pattern="number" type="text" />
-                            <small class="error">The price must be a number.</small>
-                        </div>
-                        <div class="large-4 columns">
-                            <label>Purchase Date</label>
-                            <input type="text" id="purchaseDate" required pattern="month_day_year" />
-                            <small class="error">You have to pick a valid date.</small>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-        </form>
-    </div>
-    <div id="dialog-confirm" style="display:none;" title="Item Saved">
-        <p><span class="ui-icon ui-icon-check" style="float:left; margin:0 7px 20px 0;"></span>The item has saved successfully</p>
+        </div>
     </div>

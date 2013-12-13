@@ -133,7 +133,9 @@ define([
             this.route = 'stats';
             console.log('stats');
             this.$content.html('');
-            var statsView = new StatsView();
+            var statsView = new StatsView({
+                collection: this.collection
+            });
             this.$content.append(statsView.render().el);
         },
 

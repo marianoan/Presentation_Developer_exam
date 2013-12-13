@@ -59,11 +59,17 @@ require.config({
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
+        },
+        GoogleChart: {
+            deps: ['backbone']
         }
     },
     baseUrl: 'js',
     paths: {
         jquery: 'jquery',
+        async: 'async',
+        goog: 'goog',
+        propertyParser : 'propertyParser',
         foundation: "foundation/foundation",
         "foundation.abide": "foundation/foundation.abide",
         "foundation.accordion": "foundation/foundation.accordion",
@@ -85,6 +91,7 @@ require.config({
         foundation: 'foundation.min',
         underscore: 'underscore-min',
         backbone: 'backbone-min',
+        googleChart: 'GoogleChart',
         localStorage: 'backbone.localStorage'
     }
 
