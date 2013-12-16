@@ -30,7 +30,7 @@ define([
             if (!this.length) {
                 return 0;
             }
-            return this.last().get('id');
+            return this.length;
         }
 
         /*totalInCart: function () {

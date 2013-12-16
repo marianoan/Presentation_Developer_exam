@@ -6,7 +6,8 @@ define([
   'jqueryui',
   'underscore',
   'backbone',
-  'text!AddTemplate.html'
+  'text!AddTemplate.html',
+  'upload'
 ], function ($, _, Backbone, AddTemplate) {
 
     var AddView = Backbone.View.extend({
@@ -16,7 +17,7 @@ define([
 
         //Items events
         events: {
-            'submit': 'saveComic',
+            //'submit': 'saveComic'
         },
 
         initialize: function () {
@@ -44,6 +45,15 @@ define([
             this.$purchaseDate.datepicker();
             this.$releaseDate.datepicker();
             this.$coverDate.datepicker();
+            Backbone.TemplateManager.baseUrl = '{name}';
+            /*var uploadManager = new Backbone.UploadManager({
+                uploadUrl: 'http://sroze.github.io/backbone-upload-manager/upload',
+                templates: {
+                    main: 'templates/upload-manager.main',
+                    file: 'templates/upload-manager.file'
+                }
+            });
+            uploadManager.renderTo(this.$('#coverUpload'));  */
             this.trigger('post-render');
             return this;
         },
@@ -83,6 +93,8 @@ define([
         },
 
         onPostRender: function () {
+
+
             $(this.el).foundation();
         }
 

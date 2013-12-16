@@ -47,7 +47,6 @@
 
     init : function (scope, method, options) {
         this.bindings(method, options);
-        console.log('abide');
     },
 
     events : function (scope) {

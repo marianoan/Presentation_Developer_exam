@@ -62,6 +62,9 @@ require.config({
         },
         GoogleChart: {
             deps: ['backbone']
+        },
+        upload: {
+            deps: ['backbone', 'jquery','underscore', 'backboneLoader', 'transport', 'fileUpload']
         }
     },
     baseUrl: 'js',
@@ -69,6 +72,8 @@ require.config({
         jquery: 'jquery',
         async: 'async',
         goog: 'goog',
+        facebook: '//connect.facebook.net/en_US/all',
+        upload: 'backbone.upload-manager',
         propertyParser : 'propertyParser',
         foundation: "foundation/foundation",
         "foundation.abide": "foundation/foundation.abide",
@@ -88,6 +93,10 @@ require.config({
         jqueryui: 'jquery-ui-1.10.3.custom.min',
         require: 'require',
         modernizr: 'modernizr',
+        widget: 'jquery.ui.widget',
+        backboneLoader: 'backbone.defered-view-loader',
+        transport: 'jquery.iframe-transport',
+        fileUpload: 'jquery.fileupload',
         foundation: 'foundation.min',
         underscore: 'underscore-min',
         backbone: 'backbone-min',
