@@ -6,7 +6,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!SidebarTemplate.html'
+  'text!templates/SidebarTemplate.html'
 ], function ($, _, Backbone, SidebarTemplate) {
 
     var SidebarView = Backbone.View.extend({
@@ -28,7 +28,7 @@ define([
 
         //Renders the item
         render: function () {
-            this.$el.html(this.template({ "collectionLenght": this.lenght, "count": this.options.count, "title": this.options.title, "image": this.options.image, "text": this.options.text }));
+            this.$el.html(this.template({ "collectionLenght": this.lenght, "count": this.options.count, "item": this.options.item, "title": this.options.title, "image": this.options.image, "text": this.options.text }));
             return this;
         },
 

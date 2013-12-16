@@ -6,7 +6,7 @@ define([
   'jqueryui',
   'underscore',
   'backbone',
-  'text!EditTemplate.html'
+  'text!templates/EditTemplate.html'
 ], function ($, _, Backbone, AddTemplate) {
 
     var EditView = Backbone.View.extend({

@@ -7,7 +7,7 @@ define([
   'underscore',
   'backbone',
   'models/Item',
-  'text!ThumbnailTemplate.html'
+  'text!templates/ThumbnailTemplate.html'
 ], function ($, _, Backbone, Item, ThumbnailTemplate) {
 
     var ThumbnailView = Backbone.View.extend({

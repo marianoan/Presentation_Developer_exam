@@ -7,7 +7,7 @@ define([
   'underscore',
   'backbone',
   'googleChart',
-  'text!StatsTemplate.html',
+  'text!templates/StatsTemplate.html',
   'goog!visualization,1,packages:[corechart,geochart]'
 ], function ($, _, Backbone, GoogleChart, StatsTemplate) {
 
